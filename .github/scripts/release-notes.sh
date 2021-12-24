@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+  exit -1
 if [ $# -ne 8 ]; then
   echo "usage: $0 <outputPath> <app> <network> <version> <cid> <contract> <commit> <txhash>"
   exit -1
