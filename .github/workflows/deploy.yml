@@ -48,23 +48,6 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: 14
-        - name: setup ipfs
-          uses: ibnesayeed/setup-ipfs@master
-          with:
-            run_daemon: true
-        - name: Configure aragon cli
-          run: |
-            mkdir -p ~/.aragon
-        - name: Install npm packages
-          run: yarn
-        - name: build, publish and package
-          id: build
-          run: | 
-            cd apps/${{ needs.checkTag.outputs.app }}
-            yarn --ignore-engines --dev
-            if [[ -d app ]]; then
-              yarn build
-            fi
         - name: publish
           id: publish
           run:  |
@@ -79,7 +62,7 @@ jobs:
             PACKAGE_NAME: ${{ needs.checkTag.outputs.app }}.aragonpm.eth@${{ needs.checkTag.outputs.version }}
           run: |
             cd $(mktemp -d)
-            touch $PACKAGE_NAME.tar.gz
+            echo "hello" > $PACKAGE_NAME.tar.gz
             echo "::set-output name=tar::$(echo $PWD/$PACKAGE_NAME.tar.gz)"
             echo "::set-output name=tempdir::$(echo $PWD)"
         - name: Install ipfs-cluster-ctl
